@@ -261,7 +261,10 @@ public class WeaponMenuApp {
         Weapon weapon = weaponList.retrieve(id);
         output.println(weapon);
     }
-    
+    /**
+     * 
+     * Statistics for low,high,sum,average,std deviation
+     */
     public void showStatistics(){
         double min = Double.MAX_VALUE, max = Double.MIN_VALUE, sum = 0,squareSum = 0,avg,std;
         int numberOfWeapons = 0;
@@ -286,7 +289,6 @@ public class WeaponMenuApp {
         output.println("Sum:                " + sum);
         output.println("Average:            " + avg);
         output.println("Standard Deviation: " + std);
-        //low,high,sum,average,std deviation
     }
     public static void main(String[] args) {
         WeaponMenuApp weaponMenuApp = new WeaponMenuApp();

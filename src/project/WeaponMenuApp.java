@@ -262,7 +262,7 @@ public class WeaponMenuApp {
         output.println(weapon);
     }
     /**
-     * 
+     * COMMENT @
      * Statistics for low,high,sum,average,std deviation
      */
     public void showStatistics(){

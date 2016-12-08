@@ -65,14 +65,24 @@ public class FileDAOWeapon {
         return this.toString();
     }
     public String orderByTypeLevelAscending(){
-        weaponList.sort(Comparator.comparing(Weapon::getType).thenComparing(Weapon::getItemLevel));
+        weaponList.sort((Weapon w1,Weapon w2)->{
+           if(w1.getType().equals(w2.getType())) {
+               return Integer.compare(w1.getItemLevel(), w2.getItemLevel());
+           } else
+               return w1.getType().compareTo(w2.getType());
+        });
+        //weaponList.sort(Comparator.comparing(Weapon::getType).thenComparing(Weapon::getItemLevel));
         return this.toString();
     }
     public String orderByTypeLevelDescending(){
-        weaponList.sort(Comparator.comparing(Weapon::getType).thenComparing(Weapon::getItemLevel).reversed());
+        weaponList.sort((Weapon w1,Weapon w2)->{
+           if(w1.getType().equals(w2.getType())) {
+               return Integer.compare(w2.getItemLevel(), w1.getItemLevel());
+           } else
+               return w1.getType().compareTo(w2.getType());
+        });
         return this.toString();
     }
-    
     
     public void create(Weapon weapon){
         weaponList.add(weapon);
@@ -161,6 +171,32 @@ public class FileDAOWeapon {
         } catch(IOException ioe){
             Logger.getLogger(FileDAOWeapon.class.getName()).log(Level.SEVERE, fileName, ioe);
         }
+    }
+    public String getSpeedStatistics(){
+        
+        double min = Double.MAX_VALUE, max = Double.MIN_VALUE, sum = 0,squareSum = 0,avg,std;
+        int numberOfWeapons = 0;
+        for(Weapon weapon : weaponList){
+            numberOfWeapons++;
+            if(weapon.getSpeed() < min){
+                min = weapon.getSpeed();
+            }
+            if(weapon.getSpeed() > max){
+                max = weapon.getSpeed();
+            }
+            sum += weapon.getSpeed();
+            squareSum += weapon.getSpeed() * weapon.getSpeed();
+        }
+        avg = sum/numberOfWeapons;
+        std = Math.sqrt((squareSum - (sum * sum) / numberOfWeapons)
+                / (numberOfWeapons-1));
+        
+        return String.format("Statistics for Weapon Speed\n" +
+                "Minimum:            %.3f\n" +
+                "Maximum:            %.3f\n" +
+                "Sum:                %.3f\n" +
+                "Average:            %.3f\n" +
+                "Standard Deviation: %.3f",min,max,sum,avg,std) ;
     }
     @Override
     public String toString() {

@@ -266,29 +266,7 @@ public class WeaponMenuApp {
      * Statistics for low,high,sum,average,std deviation
      */
     public void showStatistics(){
-        double min = Double.MAX_VALUE, max = Double.MIN_VALUE, sum = 0,squareSum = 0,avg,std;
-        int numberOfWeapons = 0;
-        for(Weapon weapon : weaponList.weaponList){
-            numberOfWeapons++;
-            if(weapon.getSpeed() < min){
-                min = weapon.getSpeed();
-            }
-            if(weapon.getSpeed() > max){
-                max = weapon.getSpeed();
-            }
-            sum += weapon.getSpeed();
-            squareSum += weapon.getSpeed() * weapon.getSpeed();
-        }
-        avg = sum/numberOfWeapons;
-        std = Math.sqrt((squareSum - (sum * sum) / numberOfWeapons)
-                / (numberOfWeapons-1));
-        
-        output.println("Statistics for Weapon Speed");
-        output.println("Minimum:            " + min);
-        output.println("Maximum:            " + max);
-        output.println("Sum:                " + sum);
-        output.println("Average:            " + avg);
-        output.println("Standard Deviation: " + std);
+        output.println(weaponList.getSpeedStatistics());
     }
     public static void main(String[] args) {
         WeaponMenuApp weaponMenuApp = new WeaponMenuApp();
